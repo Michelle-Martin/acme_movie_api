@@ -1,5 +1,9 @@
 const express = require("express");
+
 const app = express();
+const {
+  models: { Movie },
+} = require("./db");
 module.exports = app;
 app.get("/", (req, res) => {
   res.send(`
@@ -11,7 +15,7 @@ app.get("/", (req, res) => {
     `);
 });
 
-app.get("api/movies", (req, res) => {
-  const movies = "movies";
+app.get("/api/movies", async (req, res) => {
+  const movies = await Movie.findAll();
   res.status(200).send(movies);
 });
